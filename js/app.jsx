@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 document.addEventListener('DOMContentLoaded', function(){
 
-//komponent najniższego poziomu
+//lowest level component
 function Square(props){
     return (
       <button
@@ -15,18 +15,9 @@ function Square(props){
     );
 };
 
-//główny komponent gry złożony z komponentów Square
+//main component
 class Board extends React.Component {
-  // constructor(props){
-  //     super(props);
-  //     this.state={
-  //       squares: Array(9).fill(null), // tablica przetrzymująca wartości kratek
-  //       xIsNext: true, // pierwszy ruch
-  //
-  //     }
-  // };
-
-  renderSquare(i) { // funkcja odpowiada za zwrócenie <Square> z odpowiednim zestawem propsów
+  renderSquare(i) { // returns <Square> with props set
     return (
       <Square
         value={this.props.squares[i]}
@@ -35,16 +26,8 @@ class Board extends React.Component {
     );
   }
 
-  render() { // wyświetlamy
-    // const winner = calculateWinner(this.state.squares); //zapisujemy do zmiennej wynik działania funkcji
-    // let status; // deklarujemy pustą zmienną
-    // if (winner) { // ifem napełniamy pustą zmienną odpowiednimi danymi
-    //   status = "Winner " + winner;
-    // } else {
-    //   status = "Next player: " + (this.state.xIsNext ? "X" : "O");
-    // }
-
-    return ( // zwracamy ekran gry z odpowiednio wypełnionymi elementami <Square>
+  render() {
+    return ( // returns game screen
       <div>
         <div className="board-row">
           {this.renderSquare(0)}
@@ -66,6 +49,7 @@ class Board extends React.Component {
   }
 }
 
+// parent component for Board
 class Game extends React.Component {
   constructor(props){
       super(props);
@@ -77,19 +61,19 @@ class Game extends React.Component {
       }
   };
 
-  handleClick(i) { // metoda wykonywana na kliknięcie (wykonanie ruchu)
+  handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? "X" : "O"; // ustalam co wpisać do <Square> na podstawie state'a, pierwszy ruch będzie X
+    squares[i] = this.state.xIsNext ? "X" : "O"; // what shall I add as a square content?
     this.setState({
       history: history.concat([{
         squares: squares,
       }]),
-      xIsNext: !this.state.xIsNext, // drugi ruch to będzie "O", kolejny "X" itd
+      xIsNext: !this.state.xIsNext, // switching players
       stepNumber: history.length,
     });
   }
@@ -141,8 +125,6 @@ class Game extends React.Component {
    );
  }
 }
-
-// ========================================
 
 ReactDOM.render(
   <Game />,

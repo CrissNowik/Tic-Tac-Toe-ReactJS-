@@ -9396,7 +9396,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  //komponent najniższego poziomu
+  //lowest level component
   function Square(props) {
     return _react2.default.createElement(
       'button',
@@ -9408,7 +9408,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   };
 
-  //główny komponent gry złożony z komponentów Square
+  //main component
 
   var Board = function (_React$Component) {
     _inherits(Board, _React$Component);
@@ -9421,20 +9421,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     _createClass(Board, [{
       key: 'renderSquare',
-
-      // constructor(props){
-      //     super(props);
-      //     this.state={
-      //       squares: Array(9).fill(null), // tablica przetrzymująca wartości kratek
-      //       xIsNext: true, // pierwszy ruch
-      //
-      //     }
-      // };
-
       value: function renderSquare(i) {
         var _this2 = this;
 
-        // funkcja odpowiada za zwrócenie <Square> z odpowiednim zestawem propsów
+        // returns <Square> with props set
         return _react2.default.createElement(Square, {
           value: this.props.squares[i],
           onClick: function onClick() {
@@ -9445,16 +9435,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, {
       key: 'render',
       value: function render() {
-        // wyświetlamy
-        // const winner = calculateWinner(this.state.squares); //zapisujemy do zmiennej wynik działania funkcji
-        // let status; // deklarujemy pustą zmienną
-        // if (winner) { // ifem napełniamy pustą zmienną odpowiednimi danymi
-        //   status = "Winner " + winner;
-        // } else {
-        //   status = "Next player: " + (this.state.xIsNext ? "X" : "O");
-        // }
-
-        return (// zwracamy ekran gry z odpowiednio wypełnionymi elementami <Square>
+        return (// returns game screen
           _react2.default.createElement(
             'div',
             null,
@@ -9487,6 +9468,9 @@ document.addEventListener('DOMContentLoaded', function () {
     return Board;
   }(_react2.default.Component);
 
+  // parent component for Board
+
+
   var Game = function (_React$Component2) {
     _inherits(Game, _React$Component2);
 
@@ -9515,19 +9499,18 @@ document.addEventListener('DOMContentLoaded', function () {
     _createClass(Game, [{
       key: 'handleClick',
       value: function handleClick(i) {
-        // metoda wykonywana na kliknięcie (wykonanie ruchu)
         var history = this.state.history.slice(0, this.state.stepNumber + 1);
         var current = history[history.length - 1];
         var squares = current.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
           return;
         }
-        squares[i] = this.state.xIsNext ? "X" : "O"; // ustalam co wpisać do <Square> na podstawie state'a, pierwszy ruch będzie X
+        squares[i] = this.state.xIsNext ? "X" : "O"; // what shall I add as a square content?
         this.setState({
           history: history.concat([{
             squares: squares
           }]),
-          xIsNext: !this.state.xIsNext, // drugi ruch to będzie "O", kolejny "X" itd
+          xIsNext: !this.state.xIsNext, // switching players
           stepNumber: history.length
         });
       }
@@ -9595,8 +9578,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     return Game;
   }(_react2.default.Component);
-
-  // ========================================
 
   _reactDom2.default.render(_react2.default.createElement(Game, null), document.getElementById('app'));
 
