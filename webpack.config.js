@@ -4,7 +4,7 @@ module.exports = {
     entry: "./js/app.jsx",
     output: {
       path: path.resolve("dist"),
-      filename: "./js/out.js"
+      filename: "./dist/out.js"
     },
     watch: true,
     module: {
@@ -13,7 +13,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'stage-2', 'react']
         }
       }]
     }
