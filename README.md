@@ -7,7 +7,7 @@ Simple game created mostly in ReactJS as a drill for using this library. Enjoy!
 The best way to learn some new skills is using them - lets use ReactJS Tutorial from reactjs.org
 
 ### Demo:
- TBD
+https://crissnowik.github.io/Tic-Tac-Toe-ReactJS-/
 
 ### Copyright:
 CrissNowik
