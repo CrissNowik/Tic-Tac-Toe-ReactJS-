@@ -51,11 +51,10 @@ class Board extends React.Component {
 
 // parent component for Board
 class Game extends React.Component {
-  constructor(props){
-      super(props);
+  constructor(){
+      super();
       this.state={
-        history: [{squares: Array(9).fill(null)
-        }],
+        history: [{squares: Array(9).fill(null)}],
         stepNumber: 0,
         xIsNext: true,
       }
@@ -70,18 +69,16 @@ class Game extends React.Component {
     }
     squares[i] = this.state.xIsNext ? "X" : "O"; // what shall I add as a square content?
     this.setState({
-      history: history.concat([{
-        squares: squares,
-      }]),
-      xIsNext: !this.state.xIsNext, // switching players
+      history: history.concat([{squares: squares}]),
       stepNumber: history.length,
+      xIsNext: !this.state.xIsNext, // switching players
+
     });
   }
 
   jumpTo = (step) => {
     this.setState({
       stepNumber: step,
-      stepNumber: history.length,
       xIsNext: (step % 2) === 0,
     });
   }
